@@ -15,7 +15,6 @@ export const generateLostedPetTemplate = (losted: LostPetCDto): string => {
                 <p style="margin:5px 0 0 0;">Mascota perdida</p>
             </td>
         </tr>
-
         <tr>
             <td style="padding:20px;">
 
@@ -99,10 +98,6 @@ export const generateLostedPetTemplate = (losted: LostPetCDto): string => {
                 </table>
 
             </td>
-        </  <td style="background:#f0f0f0;text-align:center;padding:15px;font-size:12px;color:#777;">
-                Este mensaje fue generado automáticamente por PetRadar
-            </td>
-        </tr>
 
     </table>
 

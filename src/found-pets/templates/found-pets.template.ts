@@ -101,12 +101,6 @@ export const generateFoundedPetTemplate = (founded: FoundPetCDto): string =>{
         </td>
         </tr>
 
-        <tr>
-        <td style="background:#f0f0f0;text-align:center;padding:15px;font-size:12px;color:#777;">
-            Este mensaje fue generado automáticamente por PetRadar
-        </td>
-        </tr>
-
     </table>
 
     </div>

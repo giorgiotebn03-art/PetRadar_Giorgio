@@ -4,7 +4,7 @@ export const generateMapboxImage = (location: any): string => {
 
     const accessToken = envs.MAPBOX_TOKEN;
 
-    const zoom = 11;
+    const zoom = 15;
     const width = 800;
     const height = 400;
 
