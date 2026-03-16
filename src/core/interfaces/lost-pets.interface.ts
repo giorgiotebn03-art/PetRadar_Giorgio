@@ -1,4 +1,4 @@
-export interface LostPet {
+export interface LostPetCDto {
 
   id?: number;
 

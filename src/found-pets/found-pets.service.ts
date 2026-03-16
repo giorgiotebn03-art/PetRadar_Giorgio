@@ -7,6 +7,8 @@ import { EmailService } from 'src/email/email.service';
 import { Repository } from 'typeorm';
 import { generateFoundedPetTemplate } from './templates/found-pets.template';
 import { FoundPetCDto } from 'src/core/interfaces/found-pets.interface';
+import { env } from 'process';
+import { envs } from 'src/config/envs';
 
 @Injectable()
 export class FoundPetsService {
@@ -26,7 +28,7 @@ export class FoundPetsService {
     
     const template = generateFoundedPetTemplate(founded);
     const options: EmailOptions = {
-        to: "soniblast7@gmail.com",
+        to: envs.MAILER_EMAIL,
         subject: founded.description,
         html: template
     }

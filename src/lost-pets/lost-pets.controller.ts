@@ -1,14 +1,16 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { LostPetsService } from './lost-pets.service';
+import type { LostPetCDto } from 'src/core/interfaces/lost-pets.interface';
 
 @Controller('lost-pets')
 export class LostPetsController {
 
-  constructor(private service: LostPetsService) {}
+  constructor(private readonly service: LostPetsService) {}
 
   @Post()
-  create(@Body() body:any){
-    return this.service.create(body);
+  async create(@Body() losted: LostPetCDto){
+    const result = await this.service.create(losted);
+    return result;
   }
 
 }
