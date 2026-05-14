@@ -1,6 +1,8 @@
 services:
-
   petradar-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: pet-radar:latest
     container_name: PetRadarAPI
     ports:
@@ -13,23 +15,38 @@ services:
       MAPBOX_TOKEN: ${MAPBOX_TOKEN}
       DB_HOST: postgres
       DB_NAME: ${DB_NAME}
-      DB_PORT: ${DB_PORT}
+      DB_PORT: 5432            
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       APPINSIGHTS_CONNECTION_STRING: ${APPINSIGHTS_CONNECTION_STRING}
       REDIS_HOST: redis
-      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PORT: 6379        
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - petRadar-network
 
   postgres:
     image: postgis/postgis:16-master
     container_name: PetFoundedDB
-    ports: 
+    ports:
       - 5436:5432
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
     volumes:
-      - postgres_data_db:/var/lib/postgresql
+      - postgres_data_db:/var/lib/postgresql/data
+    networks:
+      - petRadar-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis
@@ -38,7 +55,13 @@ services:
       - 5437:6379
     volumes:
       - redis_data_db:/data
+    networks:
+      - petRadar-network
 
 volumes:
-  postgres_data_db: 
+  postgres_data_db:
   redis_data_db:
+
+networks:          
+  petRadar-network:
+    driver: bridge
