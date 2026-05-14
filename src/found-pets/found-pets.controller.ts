@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { FoundPetsService } from './found-pets.service';
 import type { FoundPetCDto } from 'src/core/interfaces/found-pets.interface';
 
@@ -6,6 +6,11 @@ import type { FoundPetCDto } from 'src/core/interfaces/found-pets.interface';
 export class FoundPetsController {
     
     constructor(private readonly service: FoundPetsService) {}
+
+    @Get()
+    async getAll() {
+        return this.service.getAll();
+    }
 
     @Post()
     async create(@Body() founded: FoundPetCDto){

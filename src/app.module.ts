@@ -9,14 +9,17 @@ import { envs } from './config/envs';
 import { FoundPet } from './core/db/entities/found-pet.entity';
 import { LostPet } from './core/db/entities/lost-pet.entity';
 import { dataSourceOptions } from './core/db/datasource';
+import { CacheModule } from './cache/cache.module';
+import { CacheService } from './cache/cache.service';
 
 @Module({
   imports: [LostPetsModule,
     FoundPetsModule, 
     EmailModule,
-    TypeOrmModule.forRoot(dataSourceOptions)
+    TypeOrmModule.forRoot(dataSourceOptions),
+    CacheModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CacheService],
 })
 export class AppModule {}

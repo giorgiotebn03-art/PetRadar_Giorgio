@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { LostPetsService } from './lost-pets.service';
 import type { LostPetCDto } from 'src/core/interfaces/lost-pets.interface';
 
@@ -6,6 +6,11 @@ import type { LostPetCDto } from 'src/core/interfaces/lost-pets.interface';
 export class LostPetsController {
 
   constructor(private readonly service: LostPetsService) {}
+
+  @Get()
+  async getAll() {
+    return this.service.getAll();
+  }
 
   @Post()
   async create(@Body() losted: LostPetCDto){

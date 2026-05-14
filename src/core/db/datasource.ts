@@ -1,4 +1,4 @@
-import { envs } from "src/config/envs";
+import { envs } from "../../config/envs";
 import { FoundPet } from "./entities/found-pet.entity";
 import { LostPet } from "./entities/lost-pet.entity";
 import { DataSource, DataSourceOptions } from "typeorm";
