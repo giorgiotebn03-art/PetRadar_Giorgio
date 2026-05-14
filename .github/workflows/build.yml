@@ -19,6 +19,7 @@ jobs:
             - name: Login to Github Container Registry
               uses: docker/login@v4
               with:
+                registry: ghcr.io
                 username: ${{ secrets.DOCKER_USER }}
                 password: ${{ secrets.DOCKER_PASSWORD }}
             - name: Set up QEMU
