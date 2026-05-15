@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FoundPet } from 'src/core/db/entities/found-pet.entity';
+import { LostPet } from 'src/core/db/entities/lost-pet.entity';
 import { EmailOptions } from 'src/core/interfaces/mail-options.interface';
 import { EmailModule } from 'src/email/email.module';
 import { EmailService } from 'src/email/email.service';
@@ -21,6 +22,8 @@ export class FoundPetsService {
   constructor(
     @InjectRepository(FoundPet)
     private readonly foundedRepository : Repository<FoundPet>,
+    @InjectRepository(LostPet)
+    private readonly lostPetRepository : Repository<LostPet>,
     private readonly emailService: EmailService,
     private readonly cacheService : CacheService
   ){}
@@ -61,6 +64,19 @@ export class FoundPetsService {
     logger.info("Creando FoundPet");
     await this.foundedRepository.save(newFound);
     await this.cacheService.delete(CACHE_KEY_ALL_FOUNDED);
+
+    const [lng, lat] = founded.location.coordinates;
+    logger.info(`[Found-pets.service] Buscando mascotas perdidas en radio de 500m desde [${lng}, ${lat}]`);
+    const nearbyLostPets = await this.lostPetRepository
+      .createQueryBuilder('lp')
+      .where('lp.is_active = true')
+      .andWhere(
+        'ST_DWithin(lp.location::geography, ST_SetSRID(ST_MakePoint(:lng, :lat), 4326)::geography, 500)',
+        { lng, lat },
+      )
+      .getMany();
+    logger.info(`[Found-pets.service] Se encontraron ${nearbyLostPets.length} mascota(s) perdida(s) cercana(s)`);
+
     logger.info("Mandando correo");
     const template = generateFoundedPetTemplate(founded);
     const options: EmailOptions = {
