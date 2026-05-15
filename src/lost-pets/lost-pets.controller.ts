@@ -6,7 +6,7 @@ import type { LostPetCDto } from 'src/core/interfaces/lost-pets.interface';
 export class LostPetsController {
 
   constructor(private readonly service: LostPetsService) {}
-  //as
+    //Video
   @Get()
   async getAll() {
     return this.service.getAll();
