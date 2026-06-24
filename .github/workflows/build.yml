@@ -43,12 +43,20 @@ jobs:
           sudo apt update
           sudo apt install -y ansible
 
-      - name: Setup SSH key
+      - name: Setup SSH key        # ← ESTE STEP (ya lo tenías)
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/radar_key
+          printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/radar_key
           chmod 600 ~/.ssh/radar_key
           ssh-keyscan ${{ secrets.VM_IP }} >> ~/.ssh/known_hosts
+
+      - name: Verify SSH key       # ← AGREGA ESTE NUEVO
+        run: |
+          echo "=== Key format ==="
+          head -1 ~/.ssh/radar_key
+          tail -1 ~/.ssh/radar_key
+          echo "=== Key validation ==="
+          ssh-keygen -l -f ~/.ssh/radar_key
 
       - name: Create vault password file
         run: echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > ~/.vault_pass
