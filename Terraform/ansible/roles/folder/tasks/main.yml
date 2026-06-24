@@ -14,21 +14,22 @@
 
 - name: Create /containers/wireguard
   file:
-      path: /containers/redis
+      path: /containers/wireguard
       state: directory
       mode: '777'
       recurse: yes
 
 - name: Create /containers/postgres
   file:
-      path: /containers/redis
+      path: /containers/postgres
       state: directory
       mode: '777'
       recurse: yes
 
 - name: Create /containers/radar-api
   file:
-      path: /containers/redis
+      path: /containers/radar-api
       state: directory
       mode: '777'
       recurse: yes
+

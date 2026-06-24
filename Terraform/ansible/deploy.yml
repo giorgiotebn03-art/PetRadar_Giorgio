@@ -1,4 +1,12 @@
 - hosts: servers
   become: true
+  # 10.0.2.4
+  vars_files:
+    - variables/secrets.yml
+    - variables/variables.yml
   roles: 
     - folder
+    - docker-config
+    - postgres
+    - redis
+    - wireguard

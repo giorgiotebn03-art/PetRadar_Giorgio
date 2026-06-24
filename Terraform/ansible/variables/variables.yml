@@ -1,2 +1,6 @@
-github_username:  
-github_password: 
+github_username:  "{{vault_github_username}}"
+github_password:  "{{vault_github_password}}"
+postgres_db: "radardb"
+shared_docker_network: "api-network"
+postgres_password: "{{ vault_postgres_password }}"
+shared_docker: "api-network"
