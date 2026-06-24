@@ -1,0 +1,34 @@
+- name: Create /containers folder
+  file:
+      path: /containers
+      state: directory
+      mode: '777'
+      recurse: yes
+
+- name: Create /containers/redis
+  file:
+      path: /containers/redis
+      state: directory
+      mode: '777'
+      recurse: yes
+
+- name: Create /containers/wireguard
+  file:
+      path: /containers/redis
+      state: directory
+      mode: '777'
+      recurse: yes
+
+- name: Create /containers/postgres
+  file:
+      path: /containers/redis
+      state: directory
+      mode: '777'
+      recurse: yes
+
+- name: Create /containers/radar-api
+  file:
+      path: /containers/redis
+      state: directory
+      mode: '777'
+      recurse: yes

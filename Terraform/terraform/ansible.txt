@@ -1,0 +1,22 @@
+1. Crear red de docker donde correran todos los contenedores
+    docker network radar-network
+
+2. Crear la estructura de carpetas del servidor
+    --- \
+        |--containers
+            |--postgres
+            |--redis
+            |--incident-api
+            |--wireguard
+
+mkdir -p /containers/postgres
+mkdir -p /containers/redis
+mkdir -p /containers/radar-api
+mkdir -p /containers/wireguard
+
+3. Loguearse al registry de github
+    docker login ghcr.io -u <username> -p <token>
+
+4. Crear los docker-compose.yml y los .env
+
+5. Levantar los contenedores
