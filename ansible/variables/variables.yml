@@ -1,6 +1,13 @@
+github_username: "{{ vault_github_username }}"
+github_password: "{{ vault_github_password }}"
+postgres_db: "radardb"
+postgres_password: "{{ vault_postgres_password }}"
+shared_docker_network: "api-network"
+shared_docker: "api-network"
 mapbox_token: "{{ vault_mapbox_token }}"
 mailer_email: "{{ vault_mailer_email }}"
 mailer_password: "{{ vault_mailer_password }}"
 appinsights_connection_string: "{{ vault_appinsights_connection_string }}"
 db_name: "radardb"
 db_user: "postgres"
+
