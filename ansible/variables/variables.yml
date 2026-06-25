@@ -1,0 +1,6 @@
+mapbox_token: "{{ vault_mapbox_token }}"
+mailer_email: "{{ vault_mailer_email }}"
+mailer_password: "{{ vault_mailer_password }}"
+appinsights_connection_string: "{{ vault_appinsights_connection_string }}"
+db_name: "radardb"
+db_user: "postgres"

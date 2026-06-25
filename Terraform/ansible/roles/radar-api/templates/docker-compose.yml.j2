@@ -1,0 +1,26 @@
+services:
+    radar-api:
+        image: ghcr.io/{{ github_username }}/giorgiotebn03-art:latest
+        container_name: radar-api
+        restart: always
+        ports:
+            - 3000:3000
+        environment:
+            - PORT=3000
+            - MAPBOX_TOKEN={{ mapbox_token }}
+            - MAILER_EMAIL={{ mailer_email }}
+            - MAILER_PASSWORD={{ mailer_password }}
+            - MAILER_SERVICE=gmail
+            - DB_PASSWORD={{ postgres_password }}
+            - DB_NAME={{ db_name }}
+            - DB_PORT=5432
+            - DB_HOST=PostgresSQL
+            - DB_USER={{ db_user }}
+            - APPINSIGHTS_CONNECTION_STRING={{ appinsights_connection_string }}
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
+        networks:
+            - {{ shared_docker_network }}
+networks:
+    {{ shared_docker_network }}:
+        external: true

@@ -10,3 +10,4 @@
     - postgres
     - redis
     - wireguard
+    - radar-api
